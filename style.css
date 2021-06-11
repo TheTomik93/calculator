@@ -34,11 +34,13 @@ body {
     height: 40px;
     text-align: right;
     font-size: 26px;
+    user-select: none;
 }
 #displayBottom {
     height: 50px;
     text-align: right;
     font-size: 38px;
+    user-select: none;
 }
 .button {
     background-color: var(--button-up);

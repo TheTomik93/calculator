@@ -2,11 +2,15 @@ let buttons = document.querySelectorAll(".button");
 let numberButtons = document.querySelectorAll(".number");
 let inputDisplay = document.querySelector("#displayBottom");
 let resultDisplay = document.querySelector("#displayTop");
+let display = document.querySelector("#display");
+let display2 = document.querySelector("#display2");
 let pointButton = document.querySelector("#point");
 let clearButton = document.querySelector("#clear");
 let deleteButton = document.querySelector("#delete");
 let operatorButtons = document.querySelectorAll(".operator");
 let equalsButton = document.querySelector("#equals");
+let aboutButton = document.querySelector("#about");
+let notAboutButtons = document.querySelectorAll(".notAbout");
 
 let numOne = 0;
 let numTwo = 0;
@@ -14,6 +18,7 @@ let operator = "";
 let result = 0;
 let rewrite = false;
 let canEqual = false;
+let dispHidden = true;
 
 buttons.forEach(button => button.addEventListener("mousedown", buttonDown));
 buttons.forEach(button => button.addEventListener("mouseup", buttonUp));
@@ -24,6 +29,22 @@ clearButton.addEventListener("click", clear);
 deleteButton.addEventListener("click", deleteLast);
 operatorButtons.forEach(button => button.addEventListener("click", function(){operatorPressed(button.textContent)}));
 equalsButton.addEventListener("click", equalsPressed);
+aboutButton.addEventListener("click", about);
+
+function about(){
+    if(dispHidden){
+        display2.style.zIndex = 1;
+        dispHidden = false;
+        notAboutButtons.forEach(b => {b.style.pointerEvents = "none"});
+        notAboutButtons.forEach(b => {b.style.backgroundColor = "var(--button-down)"});
+    }
+    else{
+        display2.style.zIndex = -1;
+        dispHidden = true;
+        notAboutButtons.forEach(b => {b.style.pointerEvents = "auto"});
+        notAboutButtons.forEach(b => {b.style.backgroundColor = "var(--button-up)"});
+    }
+}
 
 function buttonDown(){
     this.style.backgroundColor = "var(--button-down)";

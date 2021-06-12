@@ -12,6 +12,8 @@ let numOne = 0;
 let numTwo = 0;
 let operator = "";
 let result = 0;
+let rewrite = false;
+let canEqual = false;
 
 buttons.forEach(button => button.addEventListener("mousedown", buttonDown));
 buttons.forEach(button => button.addEventListener("mouseup", buttonUp));
@@ -32,6 +34,11 @@ function buttonUp(){
 }
 
 function appendNumber(number){
+    if (rewrite){
+        inputDisplay.textContent = "";
+        resultDisplay.textContent = "";
+        rewrite = false;
+    }
     if (inputDisplay.textContent === "0"){
         inputDisplay.textContent = number;
     }
@@ -41,6 +48,11 @@ function appendNumber(number){
 }
 
 function appendPoint(){
+    if (rewrite){
+        inputDisplay.textContent = "";
+        resultDisplay.textContent = "";
+        rewrite = false;
+    }
     if (inputDisplay.textContent.includes(".")) return;
     inputDisplay.textContent += ".";
 }
@@ -50,7 +62,7 @@ function clear(){
         resultDisplay.textContent = "";
     }
     numOne = 0;
-    numTwo = 0;
+    numTwo = 0
     operator = "";
     resultDisplay.textContent = "";
     inputDisplay.textContent = "0";
@@ -64,11 +76,18 @@ function deleteLast(){
 }
 
 function equalsPressed(){
-    numTwo = Number(inputDisplay.textContent);
-    resultDisplay.textContent = `${numOne} ${operator} ${numTwo} =`;
-    calculate();
-    operator = "";
-    inputDisplay.textContent = result;
+    if(canEqual){
+        numTwo = Number(inputDisplay.textContent);
+        resultDisplay.textContent = `${numOne} ${operator} ${numTwo} =`;
+        calculate();
+        operator = "";
+        inputDisplay.textContent = result;
+        rewrite = true;
+        canEqual = false;
+    }
+    else{
+        return;
+    }
 }
 
 function operatorPressed(chosenOperator){
@@ -77,6 +96,7 @@ function operatorPressed(chosenOperator){
     calculate();
     operator = chosenOperator;
     resultDisplay.textContent = `${numOne} ${operator}`;
+    canEqual = true;
 }
 
 function calculate(){

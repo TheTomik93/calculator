@@ -11,6 +11,8 @@ let operatorButtons = document.querySelectorAll(".operator");
 let equalsButton = document.querySelector("#equals");
 let aboutButton = document.querySelector("#about");
 let notAboutButtons = document.querySelectorAll(".notAbout");
+let colorButton = document.querySelector("#color");
+let root = document.querySelector(":root");
 
 let numOne = 0;
 let numTwo = 0;
@@ -19,6 +21,7 @@ let result = 0;
 let rewrite = false;
 let canEqual = false;
 let dispHidden = true;
+let currentColor = 1;
 
 buttons.forEach(button => button.addEventListener("mousedown", buttonDown));
 buttons.forEach(button => button.addEventListener("mouseup", buttonUp));
@@ -30,7 +33,36 @@ deleteButton.addEventListener("click", deleteLast);
 operatorButtons.forEach(button => button.addEventListener("click", function(){operatorPressed(button.textContent)}));
 equalsButton.addEventListener("click", equalsPressed);
 aboutButton.addEventListener("click", about);
+colorButton.addEventListener("click", changeColor);
 
+function changeColor(){
+    switch (currentColor){
+        case 1: // Rainbow color scheme
+            root.style.setProperty("--button-up", "rgb(0, 219, 65)");
+            root.style.setProperty("--button-down", "rgb(6, 150, 49)");
+            root.style.setProperty("--calculator", "rgb(47, 90, 247)");
+            root.style.setProperty("--display", "rgb(237, 180, 219)");
+            root.style.setProperty("--background", "rgb(250, 255, 201)");
+            currentColor = 3;
+            break;
+        case 2: // Basic color scheme
+            root.style.setProperty("--button-up", "rgb(172, 172, 172)");
+            root.style.setProperty("--button-down", "rgb(105, 105, 105)");
+            root.style.setProperty("--calculator", "rgb(82, 82, 82)");
+            root.style.setProperty("--display", "rgb(78, 165, 90)");
+            root.style.setProperty("--background", "rgb(201, 201, 201)");
+            currentColor = 1;
+            break; 
+        case 3: // Anarchy color scheme
+            root.style.setProperty("--button-up", "rgb(235, 235, 235)");
+            root.style.setProperty("--button-down", "rgb(172, 172, 172)");
+            root.style.setProperty("--calculator", "rgb(35, 35, 35)");
+            root.style.setProperty("--display", "rgb(209, 19, 19)");
+            root.style.setProperty("--background", "rgb(194, 78, 78)");
+            currentColor = 2;
+            break; 
+    }
+}
 function about(){
     if(dispHidden){
         display2.style.zIndex = 1;
